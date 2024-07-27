@@ -1,0 +1,762 @@
+[
+    {
+        "id": "0ef58b8decb36080",
+        "type": "tab",
+        "label": "Flow victron mining",
+        "disabled": false,
+        "info": "",
+        "env": []
+    },
+    {
+        "id": "1f1711b69ad0f69e",
+        "type": "debug",
+        "z": "0ef58b8decb36080",
+        "name": "debug 1",
+        "active": false,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "false",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 680,
+        "y": 180,
+        "wires": []
+    },
+    {
+        "id": "828d344ae593c4fd",
+        "type": "mqtt in",
+        "z": "0ef58b8decb36080",
+        "name": "Fronius PV",
+        "topic": "N/00e93aac4269/pvinverter/20/Ac/Power",
+        "qos": "2",
+        "datatype": "auto-detect",
+        "broker": "c0fb7ba4fc7e46da",
+        "nl": false,
+        "rap": true,
+        "rh": 0,
+        "inputs": 0,
+        "x": 260,
+        "y": 180,
+        "wires": [
+            [
+                "1f1711b69ad0f69e",
+                "009c90dcd18e9c0a"
+            ]
+        ]
+    },
+    {
+        "id": "aa4435bce59c74f1",
+        "type": "mqtt in",
+        "z": "0ef58b8decb36080",
+        "name": "Victron PV",
+        "topic": "N/00e93aac4269/system/0/Dc/Pv/Power",
+        "qos": "2",
+        "datatype": "auto-detect",
+        "broker": "c0fb7ba4fc7e46da",
+        "nl": false,
+        "rap": true,
+        "rh": 0,
+        "inputs": 0,
+        "x": 260,
+        "y": 240,
+        "wires": [
+            [
+                "a0c3c0385e3a8150",
+                "334a2b8b51bdc134"
+            ]
+        ]
+    },
+    {
+        "id": "a0c3c0385e3a8150",
+        "type": "debug",
+        "z": "0ef58b8decb36080",
+        "name": "debug 2",
+        "active": false,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "false",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 680,
+        "y": 240,
+        "wires": []
+    },
+    {
+        "id": "bc7929ca97131105",
+        "type": "sum",
+        "z": "0ef58b8decb36080",
+        "name": "PV power",
+        "topic": "totalPVpower",
+        "x": 880,
+        "y": 340,
+        "wires": [
+            [
+                "d7a6d8d8528561e0",
+                "637903227b7a254f"
+            ]
+        ]
+    },
+    {
+        "id": "d7a6d8d8528561e0",
+        "type": "debug",
+        "z": "0ef58b8decb36080",
+        "name": "debug 3",
+        "active": false,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "false",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 1060,
+        "y": 340,
+        "wires": []
+    },
+    {
+        "id": "f239fcf065d0b944",
+        "type": "change",
+        "z": "0ef58b8decb36080",
+        "name": "",
+        "rules": [
+            {
+                "t": "set",
+                "p": "payload",
+                "pt": "msg",
+                "to": "$number(payload.value)",
+                "tot": "jsonata"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 660,
+        "y": 360,
+        "wires": [
+            [
+                "bc7929ca97131105"
+            ]
+        ]
+    },
+    {
+        "id": "334a2b8b51bdc134",
+        "type": "json",
+        "z": "0ef58b8decb36080",
+        "name": "object",
+        "property": "payload",
+        "action": "obj",
+        "pretty": false,
+        "x": 490,
+        "y": 360,
+        "wires": [
+            [
+                "f239fcf065d0b944"
+            ]
+        ]
+    },
+    {
+        "id": "1197cd450816d43d",
+        "type": "change",
+        "z": "0ef58b8decb36080",
+        "name": "",
+        "rules": [
+            {
+                "t": "set",
+                "p": "payload",
+                "pt": "msg",
+                "to": "$number(payload.value)",
+                "tot": "jsonata"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 660,
+        "y": 300,
+        "wires": [
+            [
+                "bc7929ca97131105"
+            ]
+        ]
+    },
+    {
+        "id": "009c90dcd18e9c0a",
+        "type": "json",
+        "z": "0ef58b8decb36080",
+        "name": "object",
+        "property": "payload",
+        "action": "obj",
+        "pretty": false,
+        "x": 490,
+        "y": 300,
+        "wires": [
+            [
+                "1197cd450816d43d"
+            ]
+        ]
+    },
+    {
+        "id": "c74131a10ed09e91",
+        "type": "mqtt in",
+        "z": "0ef58b8decb36080",
+        "name": "AC Loads L1",
+        "topic": "N/00e93aac4269/system/0/Ac/ConsumptionOnOutput/L1/Power",
+        "qos": "2",
+        "datatype": "auto-detect",
+        "broker": "c0fb7ba4fc7e46da",
+        "nl": false,
+        "rap": true,
+        "rh": 0,
+        "inputs": 0,
+        "x": 290,
+        "y": 600,
+        "wires": [
+            [
+                "f46cf3380fd14014"
+            ]
+        ]
+    },
+    {
+        "id": "88da6015f0509007",
+        "type": "mqtt in",
+        "z": "0ef58b8decb36080",
+        "name": "BatterySOC",
+        "topic": "N/00e93aac4269/vebus/276/Soc",
+        "qos": "2",
+        "datatype": "auto-detect",
+        "broker": "c0fb7ba4fc7e46da",
+        "nl": false,
+        "rap": true,
+        "rh": 0,
+        "inputs": 0,
+        "x": 290,
+        "y": 460,
+        "wires": [
+            [
+                "282b05c7f91831b5"
+            ]
+        ]
+    },
+    {
+        "id": "9ff70f6ca983eb4e",
+        "type": "debug",
+        "z": "0ef58b8decb36080",
+        "name": "debug 4",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "false",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 980,
+        "y": 440,
+        "wires": []
+    },
+    {
+        "id": "adeb41c864918d2c",
+        "type": "mqtt in",
+        "z": "0ef58b8decb36080",
+        "name": "Grid Load",
+        "topic": "N/00e93aac4269/vebus/276/Ad/ActiveIn/P",
+        "qos": "2",
+        "datatype": "auto-detect",
+        "broker": "c0fb7ba4fc7e46da",
+        "nl": false,
+        "rap": true,
+        "rh": 0,
+        "inputs": 0,
+        "x": 280,
+        "y": 520,
+        "wires": [
+            [
+                "98a877905fd51590"
+            ]
+        ]
+    },
+    {
+        "id": "98a877905fd51590",
+        "type": "debug",
+        "z": "0ef58b8decb36080",
+        "name": "debug 5",
+        "active": false,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "false",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 460,
+        "y": 520,
+        "wires": []
+    },
+    {
+        "id": "56fbca3def77d4cc",
+        "type": "mqtt in",
+        "z": "0ef58b8decb36080",
+        "name": "AC Loads L2",
+        "topic": "N/00e93aac4269/system/0/Ac/ConsumptionOnOutput/L2/Power",
+        "qos": "2",
+        "datatype": "auto-detect",
+        "broker": "c0fb7ba4fc7e46da",
+        "nl": false,
+        "rap": true,
+        "rh": 0,
+        "inputs": 0,
+        "x": 290,
+        "y": 660,
+        "wires": [
+            [
+                "fd55206f6aeb4843"
+            ]
+        ]
+    },
+    {
+        "id": "add99ec03d4a2136",
+        "type": "mqtt in",
+        "z": "0ef58b8decb36080",
+        "name": "AC Loads L3",
+        "topic": "N/00e93aac4269/system/0/Ac/ConsumptionOnOutput/L3/Power",
+        "qos": "2",
+        "datatype": "auto-detect",
+        "broker": "c0fb7ba4fc7e46da",
+        "nl": false,
+        "rap": true,
+        "rh": 0,
+        "inputs": 0,
+        "x": 290,
+        "y": 720,
+        "wires": [
+            [
+                "2aa1e088e66c4f3a"
+            ]
+        ]
+    },
+    {
+        "id": "bad1176e31659f3a",
+        "type": "sum",
+        "z": "0ef58b8decb36080",
+        "name": "AC power out",
+        "topic": "totalACpower",
+        "x": 900,
+        "y": 660,
+        "wires": [
+            [
+                "bdea2320076d11ce",
+                "637903227b7a254f"
+            ]
+        ]
+    },
+    {
+        "id": "9e6be1568f2ef291",
+        "type": "change",
+        "z": "0ef58b8decb36080",
+        "name": "",
+        "rules": [
+            {
+                "t": "set",
+                "p": "payload",
+                "pt": "msg",
+                "to": "$number(payload.value)",
+                "tot": "jsonata"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 660,
+        "y": 660,
+        "wires": [
+            [
+                "bad1176e31659f3a"
+            ]
+        ]
+    },
+    {
+        "id": "fd55206f6aeb4843",
+        "type": "json",
+        "z": "0ef58b8decb36080",
+        "name": "object",
+        "property": "payload",
+        "action": "obj",
+        "pretty": false,
+        "x": 490,
+        "y": 660,
+        "wires": [
+            [
+                "9e6be1568f2ef291"
+            ]
+        ]
+    },
+    {
+        "id": "eb6238eb15a0a36c",
+        "type": "change",
+        "z": "0ef58b8decb36080",
+        "name": "",
+        "rules": [
+            {
+                "t": "set",
+                "p": "payload",
+                "pt": "msg",
+                "to": "$number(payload.value)",
+                "tot": "jsonata"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 660,
+        "y": 600,
+        "wires": [
+            [
+                "bad1176e31659f3a"
+            ]
+        ]
+    },
+    {
+        "id": "f46cf3380fd14014",
+        "type": "json",
+        "z": "0ef58b8decb36080",
+        "name": "object",
+        "property": "payload",
+        "action": "obj",
+        "pretty": false,
+        "x": 490,
+        "y": 600,
+        "wires": [
+            [
+                "eb6238eb15a0a36c"
+            ]
+        ]
+    },
+    {
+        "id": "6050b62d58b42034",
+        "type": "change",
+        "z": "0ef58b8decb36080",
+        "name": "",
+        "rules": [
+            {
+                "t": "set",
+                "p": "payload",
+                "pt": "msg",
+                "to": "$number(payload.value)",
+                "tot": "jsonata"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 660,
+        "y": 720,
+        "wires": [
+            [
+                "bad1176e31659f3a"
+            ]
+        ]
+    },
+    {
+        "id": "2aa1e088e66c4f3a",
+        "type": "json",
+        "z": "0ef58b8decb36080",
+        "name": "object",
+        "property": "payload",
+        "action": "obj",
+        "pretty": false,
+        "x": 490,
+        "y": 720,
+        "wires": [
+            [
+                "6050b62d58b42034"
+            ]
+        ]
+    },
+    {
+        "id": "bdea2320076d11ce",
+        "type": "debug",
+        "z": "0ef58b8decb36080",
+        "name": "debug 6",
+        "active": false,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "false",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 1080,
+        "y": 660,
+        "wires": []
+    },
+    {
+        "id": "637903227b7a254f",
+        "type": "function",
+        "z": "0ef58b8decb36080",
+        "name": "Available power",
+        "func": "switch (msg.topic) {\n    case \"totalPVpower\":\n        flow.set(\"pvpower\", msg.payload);\n        break;\n    case \"totalACpower\":\n        flow.set(\"acpower\", msg.payload);\n        break;\n    case \"battcharge\":\n        flow.set(\"battcharge\", msg.payload);\n        break;\n    default:\n    \tbreak;\n}\nvar battcharge = flow.get(\"battcharge\");\nvar pvpower = flow.get(\"pvpower\");\nvar acpower = flow.get(\"acpower\");\nmsg.payload = pvpower - acpower;\nmsg.topic = \"availablepvpower\"\n// Return power availabel if we have enough battery\n// to handle power usage transitions.\n// Otherwise, give some of it to the battery\nif (battcharge < 20)\n{\n    msg.payload = (msg.payload / 20) * (20 - battcharge);\n}\nreturn msg;\n",
+        "outputs": 1,
+        "timeout": 0,
+        "noerr": 0,
+        "initialize": "// Code added here will be run once\n// whenever the node is started.\nflow.set(\"pvpower\", 0)\nflow.set(\"acpower\", 0)\nflow.set(\"battcharge\", 0)\n",
+        "finalize": "",
+        "libs": [],
+        "x": 1140,
+        "y": 500,
+        "wires": [
+            [
+                "db0b8e438615ce38",
+                "fd125c655cba31dd"
+            ]
+        ]
+    },
+    {
+        "id": "db0b8e438615ce38",
+        "type": "debug",
+        "z": "0ef58b8decb36080",
+        "name": "debug 7",
+        "active": false,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "false",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 1340,
+        "y": 500,
+        "wires": []
+    },
+    {
+        "id": "fd125c655cba31dd",
+        "type": "binsoul-statistics",
+        "z": "0ef58b8decb36080",
+        "outputMethod": "mean",
+        "slotCount": "12",
+        "slotResolutionNumber": "10",
+        "slotResolutionUnit": "seconds",
+        "slotMethod": "mean",
+        "interpolation": "stepAfter",
+        "precision": "0",
+        "output1Frequency": "changes",
+        "output2Frequency": "never",
+        "inputValueProperty": "payload",
+        "inputValueSource": "msg",
+        "inputTimestampProperty": "",
+        "inputTimestampSource": "date",
+        "output1ValueProperty": "payload",
+        "output1ValueTarget": "msg",
+        "output2ValueProperty": "payload",
+        "output2ValueTarget": "msg",
+        "updateMode": "never",
+        "updateFrequency": 5,
+        "name": "",
+        "outputs": 1,
+        "x": 1360,
+        "y": 440,
+        "wires": [
+            [
+                "f364d808996acbf9",
+                "0d1493f4dd2daffc"
+            ]
+        ]
+    },
+    {
+        "id": "f364d808996acbf9",
+        "type": "debug",
+        "z": "0ef58b8decb36080",
+        "name": "debug 8",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "false",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 1560,
+        "y": 440,
+        "wires": []
+    },
+    {
+        "id": "811aad858bc0b3e3",
+        "type": "change",
+        "z": "0ef58b8decb36080",
+        "name": "",
+        "rules": [
+            {
+                "t": "set",
+                "p": "payload",
+                "pt": "msg",
+                "to": "$number(payload.value)",
+                "tot": "jsonata"
+            },
+            {
+                "t": "set",
+                "p": "topic",
+                "pt": "msg",
+                "to": "battcharge",
+                "tot": "str"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 800,
+        "y": 460,
+        "wires": [
+            [
+                "9ff70f6ca983eb4e",
+                "637903227b7a254f"
+            ]
+        ]
+    },
+    {
+        "id": "282b05c7f91831b5",
+        "type": "json",
+        "z": "0ef58b8decb36080",
+        "name": "object",
+        "property": "payload",
+        "action": "obj",
+        "pretty": false,
+        "x": 630,
+        "y": 460,
+        "wires": [
+            [
+                "811aad858bc0b3e3"
+            ]
+        ]
+    },
+    {
+        "id": "0d1493f4dd2daffc",
+        "type": "function",
+        "z": "0ef58b8decb36080",
+        "name": "Enabled miners",
+        "func": "\nvar minerpower = 800; // Watts\n\nif (msg.topic == \"availablepvpower\") {\n    var availablepvpower = msg.payload;\n    var activeminers = Math.trunc(availablepvpower / minerpower);\n    if (activeminers < 0)\n    {\n        activeminers = 0;\n    }\n    msg.payload = activeminers;\n    msg.topic = activeminers;\n    return msg;\n}",
+        "outputs": 1,
+        "timeout": 0,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 1580,
+        "y": 520,
+        "wires": [
+            [
+                "0439f47b7e88acea",
+                "823c5e5e9dfa164f"
+            ]
+        ]
+    },
+    {
+        "id": "0439f47b7e88acea",
+        "type": "debug",
+        "z": "0ef58b8decb36080",
+        "name": "debug 9",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "false",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 1800,
+        "y": 520,
+        "wires": []
+    },
+    {
+        "id": "1943a4c589c718b9",
+        "type": "function",
+        "z": "0ef58b8decb36080",
+        "name": "start and stop",
+        "func": "\n\nfunction enminer(enabled_miners) {\n    var debug_msg = \"nothing\";\n    for (let minernumber = 0; minernumber < enabled_miners; minernumber++)\n    {\n        if (miner[minernumber].bactive == false)\n        {\n\n        }\n        else if (miner[minernumber].bmining == false)\n        {\n\n        }\n    }\n    for (let minernumber = enabled_miners; minernumber < miners.length; minernumber++)\n    {\n        if (miner[minernumber].bmining == true)\n        {\n\n        }\n        else if (miner[minernumber].bactive == true &&\n                 miner[minernumber].iddle_time)\n        {\n            // Handle the list of iddle miners\n            // If a miner is iddle for more than 15 minutes, then shutdown it\n            \n        }\n    }\n}\n\nvar debug_msg = \"nothing\";\nvar prev_value = flow.get(\"activeminers\");\nvar enabled_miners = msg.payload;\n// Start miners\ndebug_msg = enminer(enabled_miners);\n\nmsg.payload = debug_msg;\nreturn msg;",
+        "outputs": 1,
+        "timeout": 0,
+        "noerr": 8,
+        "initialize": "// Code added here will be run once\n// whenever the node is started.\nflow.set(\"activeminers\", 0);\n\n// Miner array to keep track of what is active\nvar miner = new Object();\n\nminer.munber = 0;\nminer.bactive = false;\nminer.bmining = false;\nminer.iddle_time = 0;\nminer.mac = \"02:42:45:19:4a:b0\"\nminer.power = 800;\n\nvar miners = new Array();\nminer.munber = 0;\nfor (let minernumber = 0; minernumber < 15; minernumber++)\n{\n    miner.munber = minernumber;\n    miners.push(miner);\n}\n// Update the MAC addresses\n\n",
+        "finalize": "",
+        "libs": [],
+        "x": 1980,
+        "y": 620,
+        "wires": [
+            [
+                "1651918da5207fd1"
+            ]
+        ]
+    },
+    {
+        "id": "823c5e5e9dfa164f",
+        "type": "rbe",
+        "z": "0ef58b8decb36080",
+        "name": "",
+        "func": "rbe",
+        "gap": "",
+        "start": "",
+        "inout": "out",
+        "septopics": true,
+        "property": "payload",
+        "topi": "topic",
+        "x": 1790,
+        "y": 620,
+        "wires": [
+            [
+                "1943a4c589c718b9"
+            ]
+        ]
+    },
+    {
+        "id": "1651918da5207fd1",
+        "type": "debug",
+        "z": "0ef58b8decb36080",
+        "name": "debug 10",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "false",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 2180,
+        "y": 620,
+        "wires": []
+    },
+    {
+        "id": "c0fb7ba4fc7e46da",
+        "type": "mqtt-broker",
+        "name": "Install Victron offgrid",
+        "broker": "192.168.0.138",
+        "port": "1883",
+        "clientid": "",
+        "autoConnect": true,
+        "usetls": false,
+        "protocolVersion": "4",
+        "keepalive": "60",
+        "cleansession": true,
+        "autoUnsubscribe": true,
+        "birthTopic": "",
+        "birthQos": "0",
+        "birthRetain": "false",
+        "birthPayload": "",
+        "birthMsg": {},
+        "closeTopic": "",
+        "closeQos": "0",
+        "closeRetain": "false",
+        "closePayload": "",
+        "closeMsg": {},
+        "willTopic": "",
+        "willQos": "0",
+        "willRetain": "false",
+        "willPayload": "",
+        "willMsg": {},
+        "userProps": "",
+        "sessionExpiry": ""
+    }
+]
