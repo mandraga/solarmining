@@ -1,8 +1,8 @@
 
 
-## Enable node-red on the Vvictron GX
+## Enable MQTT output on the Victron GX
 
-Install the large version of the firmware on the device. And the device will have node-red
+Install the large version of the firmware on the device.
 
 ```
 https://www.youtube.com/watch?v=i_iaciqn_Fg
@@ -12,9 +12,9 @@ Say the victron GX server MQTT data is at https://192.168.0.138:1883/
 
 ## Enable node-red on a machine
 
-Install node red on a computer, miner or not.
-Install node-red-contrib-sum in the node red palette
-Setup nodered to start at boot: https://nodered.org/docs/faq/starting-node-red-on-boot
+* Install node red on a computer, miner or not.
+* Install node-red-contrib-sum in the node red palette.
+* Setup nodered to start at boot: https://nodered.org/docs/faq/starting-node-red-on-boot
 
 The Victron GX software is emmitting his data as mqtt messages.
 MQTT explorer connected to the GX will allow you to find the interesting topics as MQTT messages.
@@ -30,7 +30,7 @@ The token will be used to send rest API calls to te Hiveos servers.
 
 ## Test stopping the miner through the rest API
 
-First test, sample script.
+First API test, sample script.
 ```
 accessToken=ODY4o2doy-u78d4iodiot84itdtiy8i642t8it4irgwergmiwqeoifR4GER5HWqEGWRY2HWREHEsTJRTJR6gs8574t2y84yta864yv874aty2XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXYourAccessTokenLookslikethis
 baseUrl=https://api2.hiveos.farm/api/v2
