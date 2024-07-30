@@ -51,7 +51,7 @@ curl -v -s -w "\n%{http_code}" \
          -d '{ "worker_ids": [ 125 ], "data": { "command": "shutdown", "data": {} }}'
 ```
 
-### Suspending a miner if your systen has it, not like octominers 9
+### Suspending a miner if your system has it, not like octominers 9
 
 ```
 systemctl suspend
@@ -89,7 +89,7 @@ curl -v -s -w "\n%{http_code}" \
          -d '{ "worker_ids": [ 125 ], "data": { "command": "miner", "data": { "action": "stop"} }}'
 ```
 
-## Stop the machine for a while
+#### Stop the machine for a while
 
 In console, this reboots after 2 minutes
 ```
@@ -101,7 +101,7 @@ In console, this should reboot after 10 hours
 sreboot wakealarm 36000
 ```
 
-### Stop in the evening, reboot in the morning
+#### Stop in the evening, reboot in the morning
 
 We can put something in cron, such as it stops at 17h to boot at 9h.
 The bios can boot at a precise hour, but it must be set by hand in the bios menu.
@@ -109,9 +109,9 @@ In Hiveos, crontab is rewritten at boot, we can use an extra user crontab file.
 
 crontab -e -u user
 
-# Stop minimg at 17h
+* Stop minimg at 17h
 0 17 * * * /usr/sbin/miner stop
-# Start the servers at 9h, 16 hours later
+* Start the servers at 9h, 16 hours later
 4 17 * * * /usr/sbin/sreboot wakealarm 57600
 
 As we see here, we only mine 8hours out of 24h. Therefore, battery storage is very usefull.
