@@ -6,18 +6,18 @@ Financially it is equivalent to selling this power to the grid.
 
 ## Context
 
-Victron installation with batteries and solar pannels.
+Victron/Fronius installation with batteries and solar pannels.
 Octominers x9 with radeon 6600, using hiveos.
 Orange pi computer with node-red.
 
 ## Usage
 
-The Victron system reports the available solar power and battery power through a node-red server.
-The Orange pi has also a node red server and his flow will be to "burn" the excess power into the miners.
+The solar system reports the available solar power, used power, and battery charge through MQTT.
+The Orange pi node red server flow will "burn" the excess power using the miners.
 
 '''
-If excess power is available burn it.
-If no power is available and the battery has power, use it to a certain point. As instance 5%.
+If excess power is available: burn it by starting miners.
+If no power is available and the battery has power, use it to a certain point. As instance 20%.
 We can add more conditions, like open source weather/powerprice forecast apps as presented at Fosdem.
 '''
 
@@ -29,9 +29,13 @@ We will use hysteresis to avoid starting and stopping the miners too often.
 Using Hiveos rest API, we can start and stop a running miner app, or we can shutdowm the computer.
 The calls are made from node red.
 Shutting down a miner may be usefull to spare the Hiveos fee for the day, and also the idle power consumption.
-But we must enable the wake on lan property in order to boot it later. Wake on lan uses the device MAC address.
+Octominers 9 do not support wake on lan. We can take profit of the boot on alarm function.
+When the battery is empty we check the PV forecast and set a bios boot on alarm in one or more days.
 
-Because we do not want to start and stop miners all the time, we will iddle them for a wile before shutting them dowm.
-A minimum of one miner will be iddle, say that this miner is the miner running node-red.
-
+### Example with 12 miners:
+Today we have 4kw of excess power, and no battery: at 9h we start 10 miners, 2 are mining at 800 Watts.
+At noon, 10 are mining and using 4kw.
+At 16h, 5 are mining.
+At the end of the day, 19h, the forecast shows 2kw of peak power, we will restart 5 miners tomorrow and 12 in two days.
+In two days, we wake the 12 miners and shutdown some of them depending on the forecast.
 
