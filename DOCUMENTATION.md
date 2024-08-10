@@ -129,6 +129,39 @@ curl -v -s -w "\n%{http_code}" \
          -d '{ "worker_ids": [ 125 ], "data": { "command": "shutdown", "data": { "wakealarm": 120 } }}'
 ```
 
+### Getting the powered miners list
+
+We want to know which miner has booted and is available.
+
+```
+curl -v -s -w "\n%{http_code}" \
+         -H "Content-Type: application/json" \
+         -H "Authorization: Bearer $accessToken" \
+         "$baseUrl/farms/$MYFARM/workers/preview"
+```
+
+This request returns the list of the farm workers and if they are online (powered on).
+It is a json containing this:
+```
+"{"id":12345678,"farm_id":12345788,"platform":1,"name":"RIG_3050",ip_addresses":["192.168.1.55"],"stats":{"online":true}}
+```
+
+### Puting the farmid and accesstoken in a file for js use
+
+The access token and farm id sample files are in access_sample.json.
+Mine are in the confidentiel/ folder and excluded by .gitignore
+
+### Sample API quey in javascript
+
+miner_info.js demonstrates a request, prepare your config file as named in the code (../confidentiel/access.json), change the workerid in your code, and run it like this:
+
+```
+$ cd nodejs_src
+$ node miner_info.js
+```
+
+"workerid" can be picked from the worker list reqest.
+
 ## PV production forecast rest API
 
 We must know our production profile.
