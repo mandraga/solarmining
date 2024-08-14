@@ -162,6 +162,17 @@ $ node miner_info.js
 
 "workerid" can be picked from the worker list reqest.
 
+## Miners configuraiton file
+
+As defined in minerpower_sample.json, you create ./confidentiel/minerpower.json
+You will set your batery's max discharge rate, and maximum discharge power.
+And a list of all your miners, as given by "Getting the powered miners list".
+
+You will specify a low consumption estimate, it will be updated at runtime if a greater value is found.
+
+"phase" is your electrical phases, set to 1 if in monophased.
+It will be used later to balance consumption loads.
+
 ## PV production forecast rest API
 
 We must know our production profile.

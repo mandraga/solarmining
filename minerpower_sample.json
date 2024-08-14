@@ -1,0 +1,37 @@
+{
+    "solarperiod": {
+        "start_hour": 8,
+        "stop_hour": 19
+    },
+    "min_battery_percent": 30,
+    "max_battery_discharge_watts": 2000,
+    "workers": [
+        {
+            "id": 123457,
+            "power": 570,
+            "iddle_power": 45,
+            "is_online": false,
+            "is_mining": false,
+            "name": "CP6606",
+            "phase": 1
+        },
+        {
+            "id": 123456,
+            "power": 720,
+            "iddle_power": 200,
+            "is_online": false,
+            "is_mining": false,
+            "name": "CP6607",
+            "phase": 2
+        },
+        {
+            "id": 12345,
+            "power": 660,
+            "iddle_power": 150,
+            "is_online": false,
+            "is_mining": false,
+            "name": "CP6608",
+            "phase": 3
+        }
+    ]
+}

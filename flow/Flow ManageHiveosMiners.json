@@ -1,0 +1,657 @@
+[
+    {
+        "id": "3cc31816eb23ce6f",
+        "type": "tab",
+        "label": "Flow ManageHiveosMiners",
+        "disabled": false,
+        "info": "",
+        "env": []
+    },
+    {
+        "id": "a086c925d30ea92b",
+        "type": "file in",
+        "z": "3cc31816eb23ce6f",
+        "name": "Configuration",
+        "filename": "/mnt/unixData/git/solarmining/confidentiel/access.json",
+        "filenameType": "str",
+        "format": "utf8",
+        "chunk": false,
+        "sendError": false,
+        "encoding": "none",
+        "allProps": false,
+        "x": 290,
+        "y": 80,
+        "wires": [
+            [
+                "2b5192df032c8e30"
+            ]
+        ]
+    },
+    {
+        "id": "2b5192df032c8e30",
+        "type": "json",
+        "z": "3cc31816eb23ce6f",
+        "name": "",
+        "property": "payload",
+        "action": "",
+        "pretty": false,
+        "x": 430,
+        "y": 80,
+        "wires": [
+            [
+                "e46066f3b23de7fc"
+            ]
+        ]
+    },
+    {
+        "id": "ec5870bc2d05f79e",
+        "type": "inject",
+        "z": "3cc31816eb23ce6f",
+        "name": "",
+        "props": [
+            {
+                "p": "payload"
+            },
+            {
+                "p": "topic",
+                "vt": "str"
+            }
+        ],
+        "repeat": "",
+        "crontab": "",
+        "once": true,
+        "onceDelay": "0.5",
+        "topic": "",
+        "payload": "",
+        "payloadType": "date",
+        "x": 130,
+        "y": 80,
+        "wires": [
+            [
+                "a086c925d30ea92b"
+            ]
+        ]
+    },
+    {
+        "id": "e46066f3b23de7fc",
+        "type": "change",
+        "z": "3cc31816eb23ce6f",
+        "name": "Store Farm access credentials",
+        "rules": [
+            {
+                "t": "set",
+                "p": "farm_access",
+                "pt": "global",
+                "to": "payload",
+                "tot": "msg"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 630,
+        "y": 80,
+        "wires": [
+            [
+                "13a68712e0a480ea"
+            ]
+        ]
+    },
+    {
+        "id": "13a68712e0a480ea",
+        "type": "debug",
+        "z": "3cc31816eb23ce6f",
+        "name": "debug 3",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "false",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 840,
+        "y": 80,
+        "wires": []
+    },
+    {
+        "id": "4d91e156f9e53d5c",
+        "type": "http request",
+        "z": "3cc31816eb23ce6f",
+        "name": "",
+        "method": "GET",
+        "ret": "txt",
+        "paytoqs": "ignore",
+        "url": "",
+        "tls": "",
+        "persist": false,
+        "proxy": "",
+        "insecureHTTPParser": false,
+        "authType": "",
+        "senderr": false,
+        "headers": [],
+        "x": 650,
+        "y": 280,
+        "wires": [
+            [
+                "b2406f0eb383ee5b"
+            ]
+        ]
+    },
+    {
+        "id": "e773d8597410c7a9",
+        "type": "function",
+        "z": "3cc31816eb23ce6f",
+        "name": "ListMinersToContext",
+        "func": "var somethingchanged = flow.get(\"activeminerchanged\");\nif (somethingchanged)\n{\n    var config = global.get(\"farm_access\")\n    if (config === undefined) {\n        console.log(\"No Hiveos credentials found\");\n        return null;\n    }\n    msg.headers = {\n        'Content-Type': 'application/json',\n        'Authorization' : 'Bearer ' + config.accessToken\n    }\n    msg.url = config.baseUrl + '/farms/' + config.farmid + '/workers/preview';\n    console.log(msg);\n    return msg;\n}\n",
+        "outputs": 1,
+        "timeout": 0,
+        "noerr": 0,
+        "initialize": "// Code added here will be run once\n// whenever the node is started.\nflow.set(\"activeminerchanged\", true);",
+        "finalize": "",
+        "libs": [],
+        "x": 460,
+        "y": 280,
+        "wires": [
+            [
+                "4d91e156f9e53d5c"
+            ]
+        ]
+    },
+    {
+        "id": "b2406f0eb383ee5b",
+        "type": "json",
+        "z": "3cc31816eb23ce6f",
+        "name": "",
+        "property": "payload",
+        "action": "",
+        "pretty": false,
+        "x": 790,
+        "y": 280,
+        "wires": [
+            [
+                "e41a88f21282094f",
+                "0b990dc6e6a565bf"
+            ]
+        ]
+    },
+    {
+        "id": "0b990dc6e6a565bf",
+        "type": "debug",
+        "z": "3cc31816eb23ce6f",
+        "name": "debug 4",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "false",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 940,
+        "y": 320,
+        "wires": []
+    },
+    {
+        "id": "bf405d6d2962d040",
+        "type": "function",
+        "z": "3cc31816eb23ce6f",
+        "name": "Throttle mining",
+        "func": "var config = global.get(\"farm_access\")\nif (config === undefined) {\n    console.log(\"No Hiveos credentials found\");\n    return null;\n}\nvar available_pv_power = global.get(\"mean_availablepvpower\");\nif (available_pv_power === undefined) {\n    console.log(\"No available PV power found\");\n    return null;\n}\nvar miners_power = global.get(\"miner_power_usage\");\nif (miners_power === undefined) {\n    console.log(\"No miners list found\");\n    return null;\n}\n\n/**\n* If the power is available for a miner, then power it\n* For now just enable mining on online machines.\n */\nvar activeminerchanged = false;\nvar workerids = [];\nvar action = \"stop\";\n// 1000 for some kind of histeresis but it depends\n// on your miners.\nif (available_pv_power > 1000)\n{\n    // Start mining on some miners\n    // TODO: use phases\n    action = \"start\";\n    for (var i = 0; i < miners_power.workers.length && available_pv_power <= 0; i++) {\n        if (miners_power.workers[i].stats.online == true)\n        {\n            var item = miners_power.workers[i];\n            var miner_id = item.id;\n            workerids.push(miner_id);\n            activeminerchanged = true;\n            // Calculate the available power after mining is started\n            // on this worker\n            available_pv_power -= (item.power - item.iddle_power);\n        }\n    }\n}\nelse\n{\n    // Stop mining on some miners\n    action = \"stop\";\n    for (var i = 0; i < miners_power.workers.length && available_pv_power <= 0; i++) {\n        if (miners_power.workers[i].stats.online == true)\n        {\n            var item = miners_power.workers[i];\n            var miner_id = item.id;\n            workerids.push(miner_id);\n            activeminerchanged = true;\n            // Count the available power after mining is stopped\n            available_pv_power += item.power - item.iddle_power;\n        }\n    }\n}\nflow.set(\"activeminerchanged\", activeminerchanged);\n\nconst postData = JSON.stringify({ 'worker_ids': workerids, 'data': { 'command': 'miner', 'data': { 'action': action} }});\nmsg.headers = {\n    'Content-Type': 'application/json',\n    'Authorization': 'Bearer ' + config.accessToken\n}\nmsg.url = config.baseUrl + '/farms/' + config.farmid + '/workers/command';\nmsg.payload = postData;\n\nif (activeminerchanged)\n{\n    console.log(msg);\n    return msg;\n}\n",
+        "outputs": 1,
+        "timeout": 0,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 580,
+        "y": 440,
+        "wires": [
+            [
+                "eded654f6aded917"
+            ]
+        ]
+    },
+    {
+        "id": "0b4423b4af78d551",
+        "type": "file in",
+        "z": "3cc31816eb23ce6f",
+        "name": "minerpower",
+        "filename": "/mnt/unixData/git/solarmining/confidentiel/minerpower.json",
+        "filenameType": "str",
+        "format": "utf8",
+        "chunk": false,
+        "sendError": false,
+        "encoding": "none",
+        "allProps": false,
+        "x": 290,
+        "y": 160,
+        "wires": [
+            [
+                "6f8939d18000c90b"
+            ]
+        ]
+    },
+    {
+        "id": "6f8939d18000c90b",
+        "type": "json",
+        "z": "3cc31816eb23ce6f",
+        "name": "",
+        "property": "payload",
+        "action": "",
+        "pretty": false,
+        "x": 430,
+        "y": 160,
+        "wires": [
+            [
+                "abae808113372e02"
+            ]
+        ]
+    },
+    {
+        "id": "2410c7d7306da32b",
+        "type": "inject",
+        "z": "3cc31816eb23ce6f",
+        "name": "",
+        "props": [
+            {
+                "p": "payload"
+            },
+            {
+                "p": "topic",
+                "vt": "str"
+            }
+        ],
+        "repeat": "",
+        "crontab": "",
+        "once": true,
+        "onceDelay": "0.5",
+        "topic": "",
+        "payload": "",
+        "payloadType": "date",
+        "x": 130,
+        "y": 160,
+        "wires": [
+            [
+                "0b4423b4af78d551"
+            ]
+        ]
+    },
+    {
+        "id": "abae808113372e02",
+        "type": "change",
+        "z": "3cc31816eb23ce6f",
+        "name": "Store miner power usage",
+        "rules": [
+            {
+                "t": "set",
+                "p": "miner_power_usage",
+                "pt": "global",
+                "to": "payload",
+                "tot": "msg"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 610,
+        "y": 160,
+        "wires": [
+            [
+                "a7c010fef2f77ae8"
+            ]
+        ]
+    },
+    {
+        "id": "a7c010fef2f77ae8",
+        "type": "debug",
+        "z": "3cc31816eb23ce6f",
+        "name": "debug 11",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "false",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 800,
+        "y": 160,
+        "wires": []
+    },
+    {
+        "id": "2f824a3b37824685",
+        "type": "inject",
+        "z": "3cc31816eb23ce6f",
+        "name": "",
+        "props": [
+            {
+                "p": "payload"
+            },
+            {
+                "p": "topic",
+                "vt": "str"
+            }
+        ],
+        "repeat": "240",
+        "crontab": "",
+        "once": true,
+        "onceDelay": 0.1,
+        "topic": "starstopminers",
+        "payload": "",
+        "payloadType": "date",
+        "x": 160,
+        "y": 380,
+        "wires": [
+            [
+                "e773d8597410c7a9",
+                "69efaa11a2bfeed3",
+                "60b8152f23606e4d"
+            ]
+        ]
+    },
+    {
+        "id": "6e0a03a5ae899cef",
+        "type": "debug",
+        "z": "3cc31816eb23ce6f",
+        "name": "debug 12",
+        "active": false,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "false",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 1100,
+        "y": 440,
+        "wires": []
+    },
+    {
+        "id": "408616db464ff6a4",
+        "type": "comment",
+        "z": "3cc31816eb23ce6f",
+        "name": "This is executed only at start to read the configuration files.",
+        "info": "",
+        "x": 250,
+        "y": 40,
+        "wires": []
+    },
+    {
+        "id": "0bfdea36392e6782",
+        "type": "comment",
+        "z": "3cc31816eb23ce6f",
+        "name": "Running algorithm",
+        "info": "",
+        "x": 130,
+        "y": 240,
+        "wires": []
+    },
+    {
+        "id": "eded654f6aded917",
+        "type": "http request",
+        "z": "3cc31816eb23ce6f",
+        "name": "",
+        "method": "POST",
+        "ret": "txt",
+        "paytoqs": "ignore",
+        "url": "",
+        "tls": "",
+        "persist": false,
+        "proxy": "",
+        "insecureHTTPParser": false,
+        "authType": "",
+        "senderr": false,
+        "headers": [],
+        "x": 930,
+        "y": 440,
+        "wires": [
+            [
+                "6e0a03a5ae899cef"
+            ]
+        ]
+    },
+    {
+        "id": "69efaa11a2bfeed3",
+        "type": "delay",
+        "z": "3cc31816eb23ce6f",
+        "name": "",
+        "pauseType": "delay",
+        "timeout": "16",
+        "timeoutUnits": "seconds",
+        "rate": "1",
+        "nbRateUnits": "1",
+        "rateUnits": "second",
+        "randomFirst": "1",
+        "randomLast": "5",
+        "randomUnits": "seconds",
+        "drop": false,
+        "allowrate": false,
+        "outputs": 1,
+        "x": 420,
+        "y": 440,
+        "wires": [
+            [
+                "bf405d6d2962d040"
+            ]
+        ]
+    },
+    {
+        "id": "9d04c9cc326c0496",
+        "type": "function",
+        "z": "3cc31816eb23ce6f",
+        "name": "Shutdown miners on clock alarm reboot",
+        "func": "var config = global.get(\"farm_access\")\nif (config === undefined) {\n    console.log(\"No Hiveos credentials found\");\n    return null;\n}\n\nvar miners_power = global.get(\"miner_power_usage\");\nif (miners_power === undefined) {\n    console.log(\"No miners list found\");\n    return null;\n}\n// Get current time\nvar epoque = new Date();\nconsole.log(epoque);\nvar wake_up_hour = miners_power.solarperiod.start_hour;\nvar hour = epoque.getHours();\nvar minutes = epoque.getMinutes();\n// Does nothing during the day\nif (hour < miners_power.solarperiod.stop_hour &&\n    hour >= wake_up_hour)\n{\n    return null;\n}\nvar battery_soc = global.get(\"battcharge\");\nif (battery_soc >= miners_power.min_battery_percent)\n{\n    return null;\n}\n// If it is night and battery is low; then\n// power off miners and wake them up in the morning\nvar seconds_to_wakeup = 120;\nif (hour >= miners_power.solarperiod.stop_hour)\n{\n    seconds_to_wakeup += (24 - hour) * 60 * 60;\n    seconds_to_wakeup += wake_up_hour * 60 * 60;\n}\nelse if (hour < wake_up_hour)\n{\n    seconds_to_wakeup += (wake_up_hour - hour) * 60 * 60;\n}\n// Build the list of active miners\nvar workerids = [];\nfor (let i = 0; i < miners_power.workers.length; i++)\n{\n    if (miners_power.workers[i].is_online)\n    {\n        workerids.push(miners_power.workers[i].id);\n    }\n}\n\n// Request to shut them down and wake up at wake_up_hour\nconst postData = JSON.stringify({ 'worker_ids': workerids, 'data': { 'command': 'shutdown', 'data': { 'wakealarm': seconds_to_wakeup} }});\nmsg.headers = {\n    'Content-Type': 'application/json',\n    'Authorization': 'Bearer ' + config.accessToken\n}\nmsg.url = config.baseUrl + '/farms/' + config.farmid + '/workers/command';\nmsg.payload = postData;\n\nflow.set(\"activeminerchanged\", true);\n",
+        "outputs": 1,
+        "timeout": 0,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 660,
+        "y": 500,
+        "wires": [
+            [
+                "9aef1cac4d5e5eac"
+            ]
+        ]
+    },
+    {
+        "id": "eb89580d7bb00065",
+        "type": "debug",
+        "z": "3cc31816eb23ce6f",
+        "name": "debug 13",
+        "active": false,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "false",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 1100,
+        "y": 500,
+        "wires": []
+    },
+    {
+        "id": "9aef1cac4d5e5eac",
+        "type": "http request",
+        "z": "3cc31816eb23ce6f",
+        "name": "",
+        "method": "POST",
+        "ret": "txt",
+        "paytoqs": "ignore",
+        "url": "",
+        "tls": "",
+        "persist": false,
+        "proxy": "",
+        "insecureHTTPParser": false,
+        "authType": "",
+        "senderr": false,
+        "headers": [],
+        "x": 930,
+        "y": 500,
+        "wires": [
+            [
+                "eb89580d7bb00065"
+            ]
+        ]
+    },
+    {
+        "id": "60b8152f23606e4d",
+        "type": "delay",
+        "z": "3cc31816eb23ce6f",
+        "name": "",
+        "pauseType": "delay",
+        "timeout": "24",
+        "timeoutUnits": "seconds",
+        "rate": "1",
+        "nbRateUnits": "1",
+        "rateUnits": "second",
+        "randomFirst": "1",
+        "randomLast": "5",
+        "randomUnits": "seconds",
+        "drop": false,
+        "allowrate": false,
+        "outputs": 1,
+        "x": 420,
+        "y": 500,
+        "wires": [
+            [
+                "9d04c9cc326c0496"
+            ]
+        ]
+    },
+    {
+        "id": "c38cf4bc84261733",
+        "type": "http request",
+        "z": "3cc31816eb23ce6f",
+        "name": "",
+        "method": "GET",
+        "ret": "txt",
+        "paytoqs": "ignore",
+        "url": "",
+        "tls": "",
+        "persist": false,
+        "proxy": "",
+        "insecureHTTPParser": false,
+        "authType": "",
+        "senderr": false,
+        "headers": [],
+        "x": 1330,
+        "y": 280,
+        "wires": [
+            [
+                "f7b8b4b12723b051"
+            ]
+        ]
+    },
+    {
+        "id": "e41a88f21282094f",
+        "type": "function",
+        "z": "3cc31816eb23ce6f",
+        "name": "getOnlineMinersInfo",
+        "func": "var somethingchanged = flow.get(\"activeminerchanged\");\nvar msg_arr = [];\n\nif (somethingchanged)\n{\n    var config = global.get(\"farm_access\")\n    if (config === undefined) {\n        console.log(\"No Hiveos credentials found\");\n        return null;\n    }\n    var miners_power = global.get(\"miner_power_usage\");\n    if (miners_power === undefined) {\n        console.log(\"No miners list found\");\n        return null;\n    }\n    // Get the recently updated online miners list\n    var miners_array = msg.payload;\n    if (miners_array === undefined) {\n        console.log(\"No miners list found\");\n        return null;\n    }\n    // Request more info per miner\n    for (var i = 0; i < miners_array.data.length; i++) {\n        var miner_id = miners_array.data[i].id;\n        if (miners_array.data[i].stats.online == true)\n        {\n            msg.headers = {\n                'Content-Type': 'application/json',\n                'Authorization' : 'Bearer ' + config.accessToken\n            }\n            msg.url = config.baseUrl + '/farms/' + config.farmid + '/workers/' + miner_id;\n            console.log(msg);\n            msg_arr.push(msg);\n        }\n        else\n        {\n            var item = miners_power.workers.find(o => o.id === miner_id);\n            item.is_online = false;\n            item.is_mining = false;\n        }\n    }\n    // Update\n    global.set(\"miner_power_usage\", miners_power);\n    // Store the request list\n    msg.payload = msg_arr;\n}\nreturn msg;\n",
+        "outputs": 1,
+        "timeout": 0,
+        "noerr": 0,
+        "initialize": "// Code added here will be run once\n// whenever the node is started.\nflow.set(\"activeminerchanged\", true);",
+        "finalize": "",
+        "libs": [],
+        "x": 980,
+        "y": 280,
+        "wires": [
+            [
+                "2ab41b212fcac8a6"
+            ]
+        ]
+    },
+    {
+        "id": "f7b8b4b12723b051",
+        "type": "json",
+        "z": "3cc31816eb23ce6f",
+        "name": "",
+        "property": "payload",
+        "action": "",
+        "pretty": false,
+        "x": 1470,
+        "y": 280,
+        "wires": [
+            [
+                "464eca3eec49a17c",
+                "598042ae396ad888"
+            ]
+        ]
+    },
+    {
+        "id": "940d3967475a1fd4",
+        "type": "debug",
+        "z": "3cc31816eb23ce6f",
+        "name": "debug 14",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "false",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 1840,
+        "y": 280,
+        "wires": []
+    },
+    {
+        "id": "2ab41b212fcac8a6",
+        "type": "split",
+        "z": "3cc31816eb23ce6f",
+        "name": "",
+        "splt": "\\n",
+        "spltType": "str",
+        "arraySplt": 1,
+        "arraySpltType": "len",
+        "stream": false,
+        "addname": "",
+        "property": "payload",
+        "x": 1170,
+        "y": 280,
+        "wires": [
+            [
+                "c38cf4bc84261733"
+            ]
+        ]
+    },
+    {
+        "id": "464eca3eec49a17c",
+        "type": "function",
+        "z": "3cc31816eb23ce6f",
+        "name": "Update miner info",
+        "func": "var miners_power = global.get(\"miner_power_usage\");\nif (miners_power === undefined) {\n    console.log(\"No miners list found\");\n    return null;\n}\nvar workerdata = msg.payload;\nvar worker_id = workerdata.id;\nvar power_usage = workerdata.octofan_stats.psu.power_ac;\nif (power_usage === undefined) {\n    console.log(\"No power_usage field found!\");\n    return null;\n}\nvar is_mining = \"miner_start_time\" in workerdata.stats;\nif (is_mining === undefined) {\n    console.log(\"No is_mining field found!\");\n    return null;\n}\nvar item = miners_power.workers.find(o => o.id === worker_id);\nif (item === undefined) {\n    console.log(\"No miners power data found!\");\n    return null;\n}\nif (item.power < power_usage)\n{\n    item.power = power_usage;\n}\nif (item.iddle_power > power_usage &&\n    power_usage > 25)\n{\n    item.iddle_power = power_usage;\n}\nitem.is_online = true;\nitem.is_mining = is_mining;\n// Update\nglobal.set(\"miner_power_usage\", miners_power);\nreturn msg;",
+        "outputs": 1,
+        "timeout": 0,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 1650,
+        "y": 280,
+        "wires": [
+            [
+                "940d3967475a1fd4"
+            ]
+        ]
+    },
+    {
+        "id": "598042ae396ad888",
+        "type": "debug",
+        "z": "3cc31816eb23ce6f",
+        "name": "debug 15",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "false",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 1590,
+        "y": 340,
+        "wires": []
+    }
+]
