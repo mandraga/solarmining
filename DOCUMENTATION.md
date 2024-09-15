@@ -7,6 +7,7 @@ Install the large version of the firmware on the device.
 ```
 https://www.youtube.com/watch?v=i_iaciqn_Fg
 ```
+A tutorial is on this repo: https://gist.github.com/KidA001/dc5584db340cf3ad513f9415b20ed5fa
 
 Say the victron GX server MQTT data is at https://192.168.0.138:1883/
 
