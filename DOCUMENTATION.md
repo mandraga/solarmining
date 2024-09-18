@@ -9,6 +9,10 @@ https://www.youtube.com/watch?v=i_iaciqn_Fg
 ```
 A tutorial is on this repo: https://gist.github.com/KidA001/dc5584db340cf3ad513f9415b20ed5fa
 
+It is suposed to enable the MQTT broker, however, on my system it did not give all the messages at first. It was like only a serial number.
+Then after using node-red and starting a flow with Victron nodes, and this was after 4 days, it worked.
+Showed all the messages.
+
 Say the victron GX server MQTT data is at https://192.168.0.138:1883/
 
 ## Enable node-red on a machine

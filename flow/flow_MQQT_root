@@ -1,0 +1,1124 @@
+[
+    {
+        "id": "1b23e87977e45a58",
+        "type": "tab",
+        "label": "Flow victron available power",
+        "disabled": false,
+        "info": "",
+        "env": []
+    },
+    {
+        "id": "victron-client-id",
+        "type": "victron-client"
+    },
+    {
+        "id": "c0fb7ba4fc7e46da",
+        "type": "mqtt-broker",
+        "name": "Install Victron offgrid",
+        "broker": "192.168.0.138",
+        "port": "1883",
+        "clientid": "",
+        "autoConnect": true,
+        "usetls": false,
+        "protocolVersion": "4",
+        "keepalive": "60",
+        "cleansession": true,
+        "autoUnsubscribe": true,
+        "birthTopic": "",
+        "birthQos": "0",
+        "birthRetain": "false",
+        "birthPayload": "",
+        "birthMsg": {},
+        "closeTopic": "",
+        "closeQos": "0",
+        "closeRetain": "false",
+        "closePayload": "",
+        "closeMsg": {},
+        "willTopic": "",
+        "willQos": "0",
+        "willRetain": "false",
+        "willPayload": "",
+        "willMsg": {},
+        "userProps": "",
+        "sessionExpiry": ""
+    },
+    {
+        "id": "3c24aa06885419ab",
+        "type": "mqtt-broker",
+        "name": "Victron Single phase SMLP",
+        "broker": "192.168.0.165",
+        "port": "1883",
+        "clientid": "",
+        "autoConnect": true,
+        "usetls": false,
+        "protocolVersion": "4",
+        "keepalive": "60",
+        "cleansession": true,
+        "autoUnsubscribe": true,
+        "birthTopic": "",
+        "birthQos": "0",
+        "birthRetain": "false",
+        "birthPayload": "",
+        "birthMsg": {},
+        "closeTopic": "",
+        "closeQos": "0",
+        "closeRetain": "false",
+        "closePayload": "",
+        "closeMsg": {},
+        "willTopic": "",
+        "willQos": "0",
+        "willRetain": "false",
+        "willPayload": "",
+        "willMsg": {},
+        "userProps": "",
+        "sessionExpiry": ""
+    },
+    {
+        "id": "f8222f54ef0407f1",
+        "type": "mqtt in",
+        "z": "1b23e87977e45a58",
+        "name": "Victron PV",
+        "topic": "",
+        "qos": "2",
+        "datatype": "auto-detect",
+        "broker": "3c24aa06885419ab",
+        "nl": false,
+        "rap": true,
+        "rh": 0,
+        "inputs": 1,
+        "x": 560,
+        "y": 240,
+        "wires": [
+            [
+                "a3e0a9e10304d979",
+                "a4b5762f82f76996"
+            ]
+        ]
+    },
+    {
+        "id": "a3e0a9e10304d979",
+        "type": "debug",
+        "z": "1b23e87977e45a58",
+        "name": "debug 2",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "false",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 940,
+        "y": 240,
+        "wires": []
+    },
+    {
+        "id": "9b774c3590aff0d8",
+        "type": "debug",
+        "z": "1b23e87977e45a58",
+        "name": "debug 3",
+        "active": false,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "false",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 1340,
+        "y": 320,
+        "wires": []
+    },
+    {
+        "id": "894fe3fa63e2859c",
+        "type": "change",
+        "z": "1b23e87977e45a58",
+        "name": "",
+        "rules": [
+            {
+                "t": "set",
+                "p": "payload",
+                "pt": "msg",
+                "to": "$number(payload.value)",
+                "tot": "jsonata"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 940,
+        "y": 320,
+        "wires": [
+            [
+                "b91fd6d54984c9f7"
+            ]
+        ]
+    },
+    {
+        "id": "a4b5762f82f76996",
+        "type": "json",
+        "z": "1b23e87977e45a58",
+        "name": "object",
+        "property": "payload",
+        "action": "obj",
+        "pretty": false,
+        "x": 750,
+        "y": 320,
+        "wires": [
+            [
+                "894fe3fa63e2859c"
+            ]
+        ]
+    },
+    {
+        "id": "b07c5ac9c65939a3",
+        "type": "mqtt in",
+        "z": "1b23e87977e45a58",
+        "name": "AC Loads L1",
+        "topic": "",
+        "qos": "2",
+        "datatype": "auto-detect",
+        "broker": "3c24aa06885419ab",
+        "nl": false,
+        "rap": true,
+        "rh": 0,
+        "inputs": 1,
+        "x": 550,
+        "y": 600,
+        "wires": [
+            [
+                "6878510f57e3c77c",
+                "90fcf0324aec7093"
+            ]
+        ]
+    },
+    {
+        "id": "982906da43abaf7b",
+        "type": "mqtt in",
+        "z": "1b23e87977e45a58",
+        "name": "BatterySOC",
+        "topic": "",
+        "qos": "2",
+        "datatype": "auto-detect",
+        "broker": "3c24aa06885419ab",
+        "nl": false,
+        "rap": true,
+        "rh": 0,
+        "inputs": 1,
+        "x": 550,
+        "y": 460,
+        "wires": [
+            [
+                "c0cdb3b08a95dde8"
+            ]
+        ]
+    },
+    {
+        "id": "0a88f5404287726b",
+        "type": "debug",
+        "z": "1b23e87977e45a58",
+        "name": "debug 4",
+        "active": false,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "false",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 1140,
+        "y": 420,
+        "wires": []
+    },
+    {
+        "id": "d966869f36f6ed4e",
+        "type": "mqtt in",
+        "z": "1b23e87977e45a58",
+        "name": "Grid Load",
+        "topic": "",
+        "qos": "2",
+        "datatype": "auto-detect",
+        "broker": "3c24aa06885419ab",
+        "nl": false,
+        "rap": true,
+        "rh": 0,
+        "inputs": 1,
+        "x": 540,
+        "y": 520,
+        "wires": [
+            [
+                "601d557d7961fa74"
+            ]
+        ]
+    },
+    {
+        "id": "601d557d7961fa74",
+        "type": "debug",
+        "z": "1b23e87977e45a58",
+        "name": "debug 5",
+        "active": false,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "false",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 720,
+        "y": 520,
+        "wires": []
+    },
+    {
+        "id": "9b83e7c20294f7e4",
+        "type": "mqtt in",
+        "z": "1b23e87977e45a58",
+        "name": "AC Loads L2",
+        "topic": "",
+        "qos": "2",
+        "datatype": "auto-detect",
+        "broker": "3c24aa06885419ab",
+        "nl": false,
+        "rap": true,
+        "rh": 0,
+        "inputs": 1,
+        "x": 550,
+        "y": 660,
+        "wires": [
+            [
+                "b3dcf9201b980770"
+            ]
+        ]
+    },
+    {
+        "id": "3ed6c034729eb48c",
+        "type": "mqtt in",
+        "z": "1b23e87977e45a58",
+        "name": "AC Loads L3",
+        "topic": "",
+        "qos": "2",
+        "datatype": "auto-detect",
+        "broker": "3c24aa06885419ab",
+        "nl": false,
+        "rap": true,
+        "rh": 0,
+        "inputs": 1,
+        "x": 550,
+        "y": 720,
+        "wires": [
+            [
+                "95193ebd28e7c03f"
+            ]
+        ]
+    },
+    {
+        "id": "93f42f4ea99e3529",
+        "type": "change",
+        "z": "1b23e87977e45a58",
+        "name": "",
+        "rules": [
+            {
+                "t": "set",
+                "p": "payload",
+                "pt": "msg",
+                "to": "$number(payload.value)",
+                "tot": "jsonata"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 920,
+        "y": 660,
+        "wires": [
+            [
+                "70b80f9468b4ceff",
+                "13d20c7f15449f1b"
+            ]
+        ]
+    },
+    {
+        "id": "b3dcf9201b980770",
+        "type": "json",
+        "z": "1b23e87977e45a58",
+        "name": "object",
+        "property": "payload",
+        "action": "obj",
+        "pretty": false,
+        "x": 750,
+        "y": 660,
+        "wires": [
+            [
+                "93f42f4ea99e3529"
+            ]
+        ]
+    },
+    {
+        "id": "e816c318f8fff539",
+        "type": "change",
+        "z": "1b23e87977e45a58",
+        "name": "",
+        "rules": [
+            {
+                "t": "set",
+                "p": "payload",
+                "pt": "msg",
+                "to": "$number(payload.value)",
+                "tot": "jsonata"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 920,
+        "y": 600,
+        "wires": [
+            [
+                "70b80f9468b4ceff",
+                "7cf36ffc874eef2d"
+            ]
+        ]
+    },
+    {
+        "id": "6878510f57e3c77c",
+        "type": "json",
+        "z": "1b23e87977e45a58",
+        "name": "object",
+        "property": "payload",
+        "action": "obj",
+        "pretty": false,
+        "x": 750,
+        "y": 600,
+        "wires": [
+            [
+                "e816c318f8fff539"
+            ]
+        ]
+    },
+    {
+        "id": "283c156560537157",
+        "type": "change",
+        "z": "1b23e87977e45a58",
+        "name": "",
+        "rules": [
+            {
+                "t": "set",
+                "p": "payload",
+                "pt": "msg",
+                "to": "$number(payload.value)",
+                "tot": "jsonata"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 920,
+        "y": 720,
+        "wires": [
+            [
+                "70b80f9468b4ceff",
+                "4269236c6c4585fd"
+            ]
+        ]
+    },
+    {
+        "id": "95193ebd28e7c03f",
+        "type": "json",
+        "z": "1b23e87977e45a58",
+        "name": "object",
+        "property": "payload",
+        "action": "obj",
+        "pretty": false,
+        "x": 750,
+        "y": 720,
+        "wires": [
+            [
+                "283c156560537157"
+            ]
+        ]
+    },
+    {
+        "id": "24f89398a2073cba",
+        "type": "debug",
+        "z": "1b23e87977e45a58",
+        "name": "debug 6",
+        "active": false,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "false",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 1600,
+        "y": 680,
+        "wires": []
+    },
+    {
+        "id": "149c7aa969247be9",
+        "type": "function",
+        "z": "1b23e87977e45a58",
+        "name": "Available power",
+        "func": "switch (msg.topic) {\n    case \"totalPVpower\":\n        flow.set(\"pvpower\", msg.payload);\n        break;\n    case \"totalACpower\":\n        flow.set(\"acpower\", msg.payload);\n        break;\n    case \"battcharge\":\n        global.set(\"battcharge\", msg.payload);\n        break;\n    default:\n    \tbreak;\n}\nvar battcharge = global.get(\"battcharge\");\nvar pvpower = flow.get(\"pvpower\");\nvar acpower = flow.get(\"acpower\");\nmsg.payload = Math.round(pvpower - acpower);\nmsg.topic = \"availablepvpower\"\nreturn msg;\n",
+        "outputs": 1,
+        "timeout": 0,
+        "noerr": 0,
+        "initialize": "// Code added here will be run once\n// whenever the node is started.\nflow.set(\"pvpower\", 0)\nflow.set(\"acpower\", 0)\nflow.set(\"battcharge\", 0)\n",
+        "finalize": "",
+        "libs": [],
+        "x": 1380,
+        "y": 500,
+        "wires": [
+            [
+                "5711138234796c9a",
+                "ee5c5e71a8598c45"
+            ]
+        ]
+    },
+    {
+        "id": "5711138234796c9a",
+        "type": "debug",
+        "z": "1b23e87977e45a58",
+        "name": "debug 7",
+        "active": false,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "false",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 1580,
+        "y": 500,
+        "wires": []
+    },
+    {
+        "id": "7b26136ba08ccea3",
+        "type": "debug",
+        "z": "1b23e87977e45a58",
+        "name": "debug 8",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "false",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 1820,
+        "y": 440,
+        "wires": []
+    },
+    {
+        "id": "d7e1f054da789fb1",
+        "type": "change",
+        "z": "1b23e87977e45a58",
+        "name": "",
+        "rules": [
+            {
+                "t": "set",
+                "p": "payload",
+                "pt": "msg",
+                "to": "$number(payload.value)",
+                "tot": "jsonata"
+            },
+            {
+                "t": "set",
+                "p": "topic",
+                "pt": "msg",
+                "to": "battcharge",
+                "tot": "str"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 940,
+        "y": 460,
+        "wires": [
+            [
+                "0a88f5404287726b",
+                "149c7aa969247be9"
+            ]
+        ]
+    },
+    {
+        "id": "c0cdb3b08a95dde8",
+        "type": "json",
+        "z": "1b23e87977e45a58",
+        "name": "object",
+        "property": "payload",
+        "action": "obj",
+        "pretty": false,
+        "x": 750,
+        "y": 460,
+        "wires": [
+            [
+                "d7e1f054da789fb1"
+            ]
+        ]
+    },
+    {
+        "id": "4143df80dab37d2a",
+        "type": "rbe",
+        "z": "1b23e87977e45a58",
+        "name": "",
+        "func": "rbe",
+        "gap": "",
+        "start": "",
+        "inout": "out",
+        "septopics": true,
+        "property": "payload",
+        "topi": "topic",
+        "x": 1870,
+        "y": 520,
+        "wires": [
+            [
+                "dfa8f22a1dabe1e2"
+            ]
+        ]
+    },
+    {
+        "id": "681729361cef2e6d",
+        "type": "debug",
+        "z": "1b23e87977e45a58",
+        "name": "debug 10",
+        "active": false,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "false",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 2340,
+        "y": 520,
+        "wires": []
+    },
+    {
+        "id": "ee5c5e71a8598c45",
+        "type": "binsoul-statistics",
+        "z": "1b23e87977e45a58",
+        "outputMethod": "mean",
+        "slotCount": "10",
+        "slotResolutionNumber": "3",
+        "slotResolutionUnit": "seconds",
+        "slotMethod": "mean",
+        "interpolation": "stepAfter",
+        "precision": "0",
+        "output1Frequency": "changes",
+        "output2Frequency": "never",
+        "inputValueProperty": "payload",
+        "inputValueSource": "msg",
+        "inputTimestampProperty": "",
+        "inputTimestampSource": "date",
+        "output1ValueProperty": "payload",
+        "output1ValueTarget": "msg",
+        "output2ValueProperty": "payload",
+        "output2ValueTarget": "msg",
+        "updateMode": "never",
+        "updateFrequency": 5,
+        "name": "",
+        "outputs": 1,
+        "x": 1610,
+        "y": 440,
+        "wires": [
+            [
+                "7b26136ba08ccea3",
+                "4143df80dab37d2a"
+            ]
+        ]
+    },
+    {
+        "id": "b91fd6d54984c9f7",
+        "type": "sum",
+        "z": "1b23e87977e45a58",
+        "name": "PV power",
+        "topic": "totalPVpower",
+        "x": 1140,
+        "y": 320,
+        "wires": [
+            [
+                "9b774c3590aff0d8",
+                "149c7aa969247be9"
+            ]
+        ]
+    },
+    {
+        "id": "70b80f9468b4ceff",
+        "type": "sum",
+        "z": "1b23e87977e45a58",
+        "name": "AC power out",
+        "topic": "totalACpower",
+        "x": 1220,
+        "y": 660,
+        "wires": [
+            [
+                "24f89398a2073cba",
+                "149c7aa969247be9"
+            ]
+        ]
+    },
+    {
+        "id": "dfa8f22a1dabe1e2",
+        "type": "change",
+        "z": "1b23e87977e45a58",
+        "name": "Store mean available wats",
+        "rules": [
+            {
+                "t": "set",
+                "p": "mean_availablepvpower",
+                "pt": "global",
+                "to": "payload",
+                "tot": "msg"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 2100,
+        "y": 520,
+        "wires": [
+            [
+                "681729361cef2e6d"
+            ]
+        ]
+    },
+    {
+        "id": "7cf36ffc874eef2d",
+        "type": "change",
+        "z": "1b23e87977e45a58",
+        "name": "Phase1Load",
+        "rules": [
+            {
+                "t": "set",
+                "p": "Phase1Load",
+                "pt": "global",
+                "to": "payload",
+                "tot": "msg"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 1150,
+        "y": 600,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "13d20c7f15449f1b",
+        "type": "change",
+        "z": "1b23e87977e45a58",
+        "name": "Phase2Load",
+        "rules": [
+            {
+                "t": "set",
+                "p": "Phase2Load",
+                "pt": "global",
+                "to": "payload",
+                "tot": "msg"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 1150,
+        "y": 720,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "4269236c6c4585fd",
+        "type": "change",
+        "z": "1b23e87977e45a58",
+        "name": "Phase3Load",
+        "rules": [
+            {
+                "t": "set",
+                "p": "Phase3Load",
+                "pt": "global",
+                "to": "payload",
+                "tot": "msg"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 1150,
+        "y": 760,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "379009a9289b70d7",
+        "type": "inject",
+        "z": "1b23e87977e45a58",
+        "name": "",
+        "props": [
+            {
+                "p": "payload"
+            },
+            {
+                "p": "topic",
+                "vt": "str"
+            }
+        ],
+        "repeat": "",
+        "crontab": "",
+        "once": true,
+        "onceDelay": "0.5",
+        "topic": "",
+        "payload": "",
+        "payloadType": "date",
+        "x": 110,
+        "y": 140,
+        "wires": [
+            [
+                "65076aea9e1208cc"
+            ]
+        ]
+    },
+    {
+        "id": "65076aea9e1208cc",
+        "type": "change",
+        "z": "1b23e87977e45a58",
+        "name": "Store MQQT Serial path",
+        "rules": [
+            {
+                "t": "set",
+                "p": "victron_mqqt_serial",
+                "pt": "global",
+                "to": "N/c0619ab309a8/",
+                "tot": "str"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 350,
+        "y": 140,
+        "wires": [
+            [
+                "7fda819f7b4cdb45"
+            ]
+        ]
+    },
+    {
+        "id": "7fda819f7b4cdb45",
+        "type": "debug",
+        "z": "1b23e87977e45a58",
+        "name": "debug 16",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "false",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 600,
+        "y": 140,
+        "wires": []
+    },
+    {
+        "id": "7a365e2a789d7377",
+        "type": "inject",
+        "z": "1b23e87977e45a58",
+        "name": "Connect",
+        "props": [
+            {
+                "p": "action",
+                "v": "connect",
+                "vt": "str"
+            }
+        ],
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "topic": "",
+        "x": 360,
+        "y": 240,
+        "wires": [
+            [
+                "f8222f54ef0407f1",
+                "982906da43abaf7b",
+                "d966869f36f6ed4e",
+                "b07c5ac9c65939a3",
+                "9b83e7c20294f7e4",
+                "3ed6c034729eb48c"
+            ]
+        ]
+    },
+    {
+        "id": "916b0ec0cd662b0e",
+        "type": "inject",
+        "z": "1b23e87977e45a58",
+        "name": "Subscribe",
+        "props": [
+            {
+                "p": "action",
+                "v": "subscribe",
+                "vt": "str"
+            }
+        ],
+        "repeat": "",
+        "crontab": "",
+        "once": true,
+        "onceDelay": "2",
+        "topic": "",
+        "x": 110,
+        "y": 320,
+        "wires": [
+            [
+                "462fea812e7b1386",
+                "fdca1fbef97f91c0",
+                "3495860589288e06",
+                "0156ccf50e6105cd",
+                "212e8a02b2f5c1dc",
+                "45732fa9340863d6"
+            ]
+        ]
+    },
+    {
+        "id": "d28d491e0492428b",
+        "type": "debug",
+        "z": "1b23e87977e45a58",
+        "name": "debug 17",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "false",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 560,
+        "y": 340,
+        "wires": []
+    },
+    {
+        "id": "462fea812e7b1386",
+        "type": "function",
+        "z": "1b23e87977e45a58",
+        "name": "Available power",
+        "func": "var mqttpath = global.get(\"victron_mqqt_serial\");\nmsg.action = \"subscribe\";\nmsg.topic = mqttpath + \"system/0/Dc/Pv/Power\";\nmsg.payload = null;\nreturn msg;\n",
+        "outputs": 1,
+        "timeout": 0,
+        "noerr": 0,
+        "initialize": "// Code added here will be run once\n// whenever the node is started.\nflow.set(\"pvpower\", 0)\nflow.set(\"acpower\", 0)\nflow.set(\"battcharge\", 0)\n",
+        "finalize": "",
+        "libs": [],
+        "x": 320,
+        "y": 320,
+        "wires": [
+            [
+                "f8222f54ef0407f1",
+                "d28d491e0492428b"
+            ]
+        ]
+    },
+    {
+        "id": "90fcf0324aec7093",
+        "type": "debug",
+        "z": "1b23e87977e45a58",
+        "name": "debug 18",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "false",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 720,
+        "y": 560,
+        "wires": []
+    },
+    {
+        "id": "8b29ea7ad0428844",
+        "type": "victron-input-acload",
+        "z": "1b23e87977e45a58",
+        "service": "",
+        "path": "",
+        "name": "",
+        "onlyChanges": false,
+        "x": 340,
+        "y": 900,
+        "wires": [
+            [
+                "173ba3b3008b0722"
+            ]
+        ]
+    },
+    {
+        "id": "173ba3b3008b0722",
+        "type": "debug",
+        "z": "1b23e87977e45a58",
+        "name": "debug 19",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "false",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 500,
+        "y": 900,
+        "wires": []
+    },
+    {
+        "id": "00ed3904659afcf7",
+        "type": "victron-input-battery",
+        "z": "1b23e87977e45a58",
+        "service": "com.victronenergy.battery/512",
+        "path": "/Capacity",
+        "serviceObj": {
+            "service": "com.victronenergy.battery/512",
+            "name": "EVS  BMS"
+        },
+        "pathObj": {
+            "path": "/Capacity",
+            "type": "float",
+            "name": "Capacity (Ah)"
+        },
+        "name": "",
+        "onlyChanges": false,
+        "roundValues": "2",
+        "x": 370,
+        "y": 960,
+        "wires": [
+            [
+                "daa29e99521dc849"
+            ]
+        ]
+    },
+    {
+        "id": "daa29e99521dc849",
+        "type": "debug",
+        "z": "1b23e87977e45a58",
+        "name": "debug 20",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "false",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 620,
+        "y": 960,
+        "wires": []
+    },
+    {
+        "id": "fdca1fbef97f91c0",
+        "type": "function",
+        "z": "1b23e87977e45a58",
+        "name": "Battery State of charge",
+        "func": "var mqttpath = global.get(\"victron_mqqt_serial\");\nmsg.action = \"subscribe\";\nmsg.topic = mqttpath + \"/vebus/276/Soc\";\nreturn msg;\n",
+        "outputs": 1,
+        "timeout": 0,
+        "noerr": 0,
+        "initialize": "// Code added here will be run once\n// whenever the node is started.\nflow.set(\"pvpower\", 0)\nflow.set(\"acpower\", 0)\nflow.set(\"battcharge\", 0)\n",
+        "finalize": "",
+        "libs": [],
+        "x": 320,
+        "y": 460,
+        "wires": [
+            [
+                "982906da43abaf7b"
+            ]
+        ]
+    },
+    {
+        "id": "3495860589288e06",
+        "type": "function",
+        "z": "1b23e87977e45a58",
+        "name": "Grid Load",
+        "func": "var mqttpath = global.get(\"victron_mqqt_serial\");\nmsg.action = \"subscribe\";\nmsg.topic = mqttpath + \"vebus/276/Ad/ActiveIn/P\";\nmsg.payload = null;\nreturn msg;\n",
+        "outputs": 1,
+        "timeout": 0,
+        "noerr": 0,
+        "initialize": "// Code added here will be run once\n// whenever the node is started.\nflow.set(\"pvpower\", 0)\nflow.set(\"acpower\", 0)\nflow.set(\"battcharge\", 0)\n",
+        "finalize": "",
+        "libs": [],
+        "x": 300,
+        "y": 520,
+        "wires": [
+            [
+                "d966869f36f6ed4e"
+            ]
+        ]
+    },
+    {
+        "id": "0156ccf50e6105cd",
+        "type": "function",
+        "z": "1b23e87977e45a58",
+        "name": "AC Load L1",
+        "func": "var mqttpath = global.get(\"victron_mqqt_serial\");\nmsg.action = \"subscribe\";\nmsg.topic = mqttpath + \"system/0/Ac/ConsumptionOnOutput/L1/Power\";\nmsg.payload = null;\nreturn msg;\n",
+        "outputs": 1,
+        "timeout": 0,
+        "noerr": 0,
+        "initialize": "// Code added here will be run once\n// whenever the node is started.\nflow.set(\"pvpower\", 0)\nflow.set(\"acpower\", 0)\nflow.set(\"battcharge\", 0)\n",
+        "finalize": "",
+        "libs": [],
+        "x": 310,
+        "y": 600,
+        "wires": [
+            [
+                "b07c5ac9c65939a3"
+            ]
+        ]
+    },
+    {
+        "id": "212e8a02b2f5c1dc",
+        "type": "function",
+        "z": "1b23e87977e45a58",
+        "name": "AC Load L2",
+        "func": "var mqttpath = global.get(\"victron_mqqt_serial\");\nmsg.action = \"subscribe\";\nmsg.topic = mqttpath + \"system/0/Ac/ConsumptionOnOutput/L2/Power\";\nmsg.payload = null;\nreturn msg;\n",
+        "outputs": 1,
+        "timeout": 0,
+        "noerr": 0,
+        "initialize": "// Code added here will be run once\n// whenever the node is started.\nflow.set(\"pvpower\", 0)\nflow.set(\"acpower\", 0)\nflow.set(\"battcharge\", 0)\n",
+        "finalize": "",
+        "libs": [],
+        "x": 310,
+        "y": 660,
+        "wires": [
+            [
+                "9b83e7c20294f7e4"
+            ]
+        ]
+    },
+    {
+        "id": "45732fa9340863d6",
+        "type": "function",
+        "z": "1b23e87977e45a58",
+        "name": "AC Load L3",
+        "func": "var mqttpath = global.get(\"victron_mqqt_serial\");\nmsg.action = \"subscribe\";\nmsg.topic = mqttpath + \"system/0/Ac/ConsumptionOnOutput/L3/Power\";\nmsg.payload = null;\nreturn msg;\n",
+        "outputs": 1,
+        "timeout": 0,
+        "noerr": 0,
+        "initialize": "// Code added here will be run once\n// whenever the node is started.\nflow.set(\"pvpower\", 0)\nflow.set(\"acpower\", 0)\nflow.set(\"battcharge\", 0)\n",
+        "finalize": "",
+        "libs": [],
+        "x": 310,
+        "y": 720,
+        "wires": [
+            [
+                "3ed6c034729eb48c"
+            ]
+        ]
+    }
+]
