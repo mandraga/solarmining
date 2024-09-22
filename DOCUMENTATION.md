@@ -10,20 +10,34 @@ https://www.youtube.com/watch?v=i_iaciqn_Fg
 A tutorial is on this repo: https://gist.github.com/KidA001/dc5584db340cf3ad513f9415b20ed5fa
 
 It is suposed to enable the MQTT broker, however, on my system it did not give all the messages at first. It was like only a serial number.
-Then after using node-red and starting a flow with Victron nodes, and this was after 4 days, it worked.
-Showed all the messages.
+In fact, a keep alive message is required in order to get all the messages.
+
+To enable the secure shell on the GerboGX or use a raspberry pi:
+https://youtu.be/3KhZvcBjq7M?si=aQWfbnbZJI1yQpD6
+Venus os setup helper:
+https://github.com/kwindrem/SetupHelper
+
+The shell will be usefull to store the config files onboard.
 
 Say the victron GX server MQTT data is at https://192.168.0.138:1883/
 
-## Enable node-red on a machine
+### Enable node-red on a machine
 
 * Install node red on a computer, miner or not.
 * Install node-red-contrib-sum in the node red palette.
 * Setup nodered to start at boot: https://nodered.org/docs/faq/starting-node-red-on-boot
 
+### Enable node-red on the GerboCX
+
+Just install the large VenusOS image, and enabel MQTT and modbus in "VenusOS Large" settings.
+Enable ssh access to be able to copy the configration files.
+
+## MQTT
+
 The Victron GX software is emmitting his data as mqtt messages.
 MQTT explorer connected to the GX will allow you to find the interesting topics as MQTT messages.
-They will be PV power, battery state of charge, and currently used AC power.
+However, a keep aline is needed https://imval.tech/index.php/blog/victron-mqtt-server-bridging. 
+Variables will be PV power, battery state of charge, and currently used AC power.
 This data will be processed to deduce the available power.
 
 # Get your Hiveos rest API key

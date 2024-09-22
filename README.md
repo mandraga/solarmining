@@ -2,7 +2,7 @@
 
 Mining cryptos on solar pannels. Starting and stopping devices in regard to available power.
 The goal is to "burn" all the excess power with the miners.
-Financially it is equivalent to selling this power to the grid.
+Financially, thid is equivalent to selling this power to the grid.
 
 ## Context
 
@@ -29,19 +29,24 @@ We will use hysteresis to avoid starting and stopping the miners too often.
 Using Hiveos rest API, we can start and stop a running miner app, or we can shutdowm the computer.
 The calls are made from node red.
 Shutting down a miner may be usefull to spare the Hiveos fee for the day, and also the idle power consumption.
-Octominers 9 do not support wake on lan. We can take profit of the boot on alarm function.
-When the battery is empty we check the PV forecast and set a bios boot on alarm in one or more days.
+Octominers 9 do not support wake on lan, but can take profit of the boot on alarm function.
+When the battery is empty we set a bios boot on alarm in one or more days.
 
 
-### Example with 12 miners:
+### Example of what it could do with 12 miners:
 
-Today we have 4kw of excess power, and no battery: at 9h we start 10 miners, 2 are mining at 800 Watts.
+Today we have 4kw of excess power, and no battery: at 9h we boot 10 miners, 2 are mining at 800 Watts the 8 others are iddle.
 
 At noon, 10 are mining and using 4kw.
 
-At 16h, 5 are mining.
+At 16h, 5 are mining and 5 are iddle.
 
 At the end of the day, 19h, the forecast shows 2kw of peak power, we will restart 5 miners tomorrow and 12 in two days.
 
 In two days, we wake the 12 miners and shutdown some of them depending on the forecast.
+
+### Storage
+
+We can by more miners and pannels, or have more storage, but all in all you must produce 3 times what you mine in order to mine 24h/24h.
+You can also use the grid and use solar only during the day, but then you only need an inverter.
 

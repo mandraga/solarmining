@@ -13,7 +13,9 @@
             "is_online": false,
             "is_mining": false,
             "name": "CP6606",
-            "phase": 1
+            "phase": 1,
+            "bootchipID": "6",
+            "haswakeonlan": false
         },
         {
             "id": 123456,

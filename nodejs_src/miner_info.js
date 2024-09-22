@@ -1,9 +1,13 @@
+/**
+ * Returns a miner information, differs f the miner is powerred on or off.
+ */
+
 var https = require('https');
 
 const configfile = '../confidentiel/access.json'
 var config = require(configfile)
 
-var workerid = 1234567;
+var workerid = 9184726;
 
 var options = {
   host: 'api2.hiveos.farm',
@@ -26,9 +30,9 @@ var options = {
     res.on("end", function () {
       try {
         var body = chunks.join("");
-        //console.log("Body: " + body);
+        console.log("Body: " + body);
         var miner_info = JSON.parse(body);
-        console.log(miner_info);
+        //console.log(miner_info);
         // Miner id
         console.log("Miner id: " + miner_info.id);
         // Current power usage
