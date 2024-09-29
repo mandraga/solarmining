@@ -181,7 +181,7 @@ $ node miner_info.js
 
 "workerid" can be picked from the worker list reqest.
 
-## Miners configuraiton file
+## Miners configuration file
 
 As defined in minerpower_sample.json, you create ./confidentiel/minerpower.json
 You will set your batery's max discharge rate, and maximum discharge power.
@@ -191,6 +191,12 @@ You will specify a low consumption estimate, it will be updated at runtime if a 
 
 "phase" is your electrical phases, set to 1 if in monophased.
 It will be used later to balance consumption loads.
+
+## Set the idle powe in hiveos
+
+The idle power is not that precisely monitored, you can configure it in the worker parameters in hiveos.
+
+![alt text](https://github.com/mandraga/solarmining/blob/main/pictures/setidlepower.png)
 
 ## PV production forecast rest API
 

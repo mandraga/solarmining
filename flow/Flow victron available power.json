@@ -34,7 +34,7 @@
         "type": "debug",
         "z": "1b23e87977e45a58",
         "name": "debug 2",
-        "active": true,
+        "active": false,
         "tosidebar": true,
         "console": false,
         "tostatus": false,
@@ -42,7 +42,7 @@
         "statusVal": "",
         "statusType": "auto",
         "x": 760,
-        "y": 400,
+        "y": 340,
         "wires": []
     },
     {
@@ -50,7 +50,7 @@
         "type": "debug",
         "z": "1b23e87977e45a58",
         "name": "debug 3",
-        "active": true,
+        "active": false,
         "tosidebar": true,
         "console": false,
         "tostatus": false,
@@ -58,7 +58,7 @@
         "statusVal": "",
         "statusType": "auto",
         "x": 1340,
-        "y": 480,
+        "y": 400,
         "wires": []
     },
     {
@@ -81,7 +81,7 @@
         "to": "",
         "reg": false,
         "x": 940,
-        "y": 480,
+        "y": 400,
         "wires": [
             [
                 "b91fd6d54984c9f7"
@@ -97,7 +97,7 @@
         "action": "obj",
         "pretty": false,
         "x": 750,
-        "y": 480,
+        "y": 400,
         "wires": [
             [
                 "894fe3fa63e2859c"
@@ -152,7 +152,7 @@
         "type": "debug",
         "z": "1b23e87977e45a58",
         "name": "debug 4",
-        "active": true,
+        "active": false,
         "tosidebar": true,
         "console": false,
         "tostatus": false,
@@ -189,7 +189,7 @@
         "type": "debug",
         "z": "1b23e87977e45a58",
         "name": "debug 5",
-        "active": true,
+        "active": false,
         "tosidebar": true,
         "console": false,
         "tostatus": false,
@@ -243,34 +243,6 @@
         ]
     },
     {
-        "id": "93f42f4ea99e3529",
-        "type": "change",
-        "z": "1b23e87977e45a58",
-        "name": "",
-        "rules": [
-            {
-                "t": "set",
-                "p": "payload",
-                "pt": "msg",
-                "to": "$number(payload.value)",
-                "tot": "jsonata"
-            }
-        ],
-        "action": "",
-        "property": "",
-        "from": "",
-        "to": "",
-        "reg": false,
-        "x": 920,
-        "y": 820,
-        "wires": [
-            [
-                "70b80f9468b4ceff",
-                "13d20c7f15449f1b"
-            ]
-        ]
-    },
-    {
         "id": "b3dcf9201b980770",
         "type": "json",
         "z": "1b23e87977e45a58",
@@ -278,39 +250,11 @@
         "property": "payload",
         "action": "obj",
         "pretty": false,
-        "x": 750,
+        "x": 710,
         "y": 820,
         "wires": [
             [
-                "93f42f4ea99e3529"
-            ]
-        ]
-    },
-    {
-        "id": "e816c318f8fff539",
-        "type": "change",
-        "z": "1b23e87977e45a58",
-        "name": "",
-        "rules": [
-            {
-                "t": "set",
-                "p": "payload",
-                "pt": "msg",
-                "to": "$number(payload.value)",
-                "tot": "jsonata"
-            }
-        ],
-        "action": "",
-        "property": "",
-        "from": "",
-        "to": "",
-        "reg": false,
-        "x": 920,
-        "y": 760,
-        "wires": [
-            [
-                "70b80f9468b4ceff",
-                "7cf36ffc874eef2d"
+                "b38498549ebd1989"
             ]
         ]
     },
@@ -322,39 +266,11 @@
         "property": "payload",
         "action": "obj",
         "pretty": false,
-        "x": 750,
+        "x": 710,
         "y": 760,
         "wires": [
             [
-                "e816c318f8fff539"
-            ]
-        ]
-    },
-    {
-        "id": "283c156560537157",
-        "type": "change",
-        "z": "1b23e87977e45a58",
-        "name": "",
-        "rules": [
-            {
-                "t": "set",
-                "p": "payload",
-                "pt": "msg",
-                "to": "$number(payload.value)",
-                "tot": "jsonata"
-            }
-        ],
-        "action": "",
-        "property": "",
-        "from": "",
-        "to": "",
-        "reg": false,
-        "x": 920,
-        "y": 880,
-        "wires": [
-            [
-                "70b80f9468b4ceff",
-                "4269236c6c4585fd"
+                "76c434c3e564fa49"
             ]
         ]
     },
@@ -366,11 +282,11 @@
         "property": "payload",
         "action": "obj",
         "pretty": false,
-        "x": 750,
+        "x": 710,
         "y": 880,
         "wires": [
             [
-                "283c156560537157"
+                "0647b76a775350f7"
             ]
         ]
     },
@@ -379,7 +295,7 @@
         "type": "debug",
         "z": "1b23e87977e45a58",
         "name": "debug 6",
-        "active": true,
+        "active": false,
         "tosidebar": true,
         "console": false,
         "tostatus": false,
@@ -395,14 +311,14 @@
         "type": "function",
         "z": "1b23e87977e45a58",
         "name": "Available power",
-        "func": "switch (msg.topic) {\n    case \"totalPVpower\":\n        flow.set(\"pvpower\", msg.payload);\n        break;\n    case \"totalACpower\":\n        flow.set(\"acpower\", msg.payload);\n        break;\n    case \"battcharge\":\n        global.set(\"battcharge\", msg.payload);\n        break;\n    default:\n    \tbreak;\n}\nvar battcharge = global.get(\"battcharge\");\nvar pvpower = flow.get(\"pvpower\");\nvar acpower = flow.get(\"acpower\");\nmsg.payload = Math.round(pvpower - acpower);\nmsg.topic = \"availablepvpower\"\nreturn msg;\n",
+        "func": "switch (msg.topic) {\n    case \"totalPVpower\":\n        flow.set(\"pvpower\", msg.payload);\n        break;\n    case \"totalACpower\":\n        flow.set(\"acpower\", msg.payload);\n        break;\n    case \"battcharge\":\n        global.set(\"battcharge\", msg.payload);\n        break;\n    default:\n    \tbreak;\n}\nvar pvpower = flow.get(\"pvpower\");\nvar acpower = flow.get(\"acpower\");\nmsg.payload = Math.round(pvpower - acpower);\nmsg.topic = \"availablepvpower\"\nreturn msg;\n",
         "outputs": 1,
         "timeout": 0,
         "noerr": 0,
         "initialize": "// Code added here will be run once\n// whenever the node is started.\nflow.set(\"pvpower\", 0)\nflow.set(\"acpower\", 0)\nflow.set(\"battcharge\", 0)\n",
         "finalize": "",
         "libs": [],
-        "x": 1380,
+        "x": 1400,
         "y": 660,
         "wires": [
             [
@@ -416,31 +332,15 @@
         "type": "debug",
         "z": "1b23e87977e45a58",
         "name": "debug 7",
-        "active": true,
+        "active": false,
         "tosidebar": true,
         "console": false,
         "tostatus": false,
         "complete": "false",
         "statusVal": "",
         "statusType": "auto",
-        "x": 1580,
+        "x": 1620,
         "y": 660,
-        "wires": []
-    },
-    {
-        "id": "7b26136ba08ccea3",
-        "type": "debug",
-        "z": "1b23e87977e45a58",
-        "name": "debug 8",
-        "active": true,
-        "tosidebar": true,
-        "console": false,
-        "tostatus": false,
-        "complete": "false",
-        "statusVal": "",
-        "statusType": "auto",
-        "x": 1820,
-        "y": 600,
         "wires": []
     },
     {
@@ -506,8 +406,8 @@
         "septopics": true,
         "property": "payload",
         "topi": "topic",
-        "x": 1870,
-        "y": 680,
+        "x": 1790,
+        "y": 600,
         "wires": [
             [
                 "dfa8f22a1dabe1e2"
@@ -519,15 +419,15 @@
         "type": "debug",
         "z": "1b23e87977e45a58",
         "name": "debug 10",
-        "active": true,
+        "active": false,
         "tosidebar": true,
         "console": false,
         "tostatus": false,
         "complete": "false",
         "statusVal": "",
         "statusType": "auto",
-        "x": 2360,
-        "y": 680,
+        "x": 2380,
+        "y": 600,
         "wires": []
     },
     {
@@ -555,11 +455,10 @@
         "updateFrequency": 5,
         "name": "",
         "outputs": 1,
-        "x": 1610,
+        "x": 1630,
         "y": 600,
         "wires": [
             [
-                "7b26136ba08ccea3",
                 "4143df80dab37d2a"
             ]
         ]
@@ -571,7 +470,7 @@
         "name": "PV power",
         "topic": "totalPVpower",
         "x": 1140,
-        "y": 480,
+        "y": 400,
         "wires": [
             [
                 "9b774c3590aff0d8",
@@ -613,11 +512,11 @@
         "from": "",
         "to": "",
         "reg": false,
-        "x": 2100,
-        "y": 680,
+        "x": 2000,
+        "y": 600,
         "wires": [
             [
-                "681729361cef2e6d"
+                "9d9be903496acc98"
             ]
         ]
     },
@@ -691,7 +590,7 @@
         "to": "",
         "reg": false,
         "x": 1150,
-        "y": 920,
+        "y": 940,
         "wires": [
             []
         ]
@@ -710,8 +609,8 @@
         ],
         "repeat": "",
         "crontab": "",
-        "once": false,
-        "onceDelay": 0.1,
+        "once": true,
+        "onceDelay": "1",
         "topic": "",
         "x": 360,
         "y": 400,
@@ -741,7 +640,7 @@
         "repeat": "",
         "crontab": "",
         "once": true,
-        "onceDelay": "2",
+        "onceDelay": "3",
         "topic": "",
         "x": 110,
         "y": 480,
@@ -760,7 +659,7 @@
         "id": "462fea812e7b1386",
         "type": "function",
         "z": "1b23e87977e45a58",
-        "name": "Available power",
+        "name": "Solar power",
         "func": "var systemid = global.get(\"victron_mqqt_serial\");\nmsg.action = \"subscribe\";\nmsg.topic = \"N/\" + systemid + \"/system/0/Dc/Pv/Power\";\nmsg.payload = null;\nreturn msg;\n",
         "outputs": 1,
         "timeout": 0,
@@ -768,7 +667,7 @@
         "initialize": "// Code added here will be run once\n// whenever the node is started.\nflow.set(\"pvpower\", 0)\nflow.set(\"acpower\", 0)\nflow.set(\"battcharge\", 0)\n",
         "finalize": "",
         "libs": [],
-        "x": 320,
+        "x": 310,
         "y": 480,
         "wires": [
             [
@@ -781,7 +680,7 @@
         "type": "debug",
         "z": "1b23e87977e45a58",
         "name": "debug 18",
-        "active": true,
+        "active": false,
         "tosidebar": true,
         "console": false,
         "tostatus": false,
@@ -947,7 +846,7 @@
         "repeat": "",
         "crontab": "",
         "once": true,
-        "onceDelay": "0.5",
+        "onceDelay": "0.1",
         "topic": "",
         "payload": "",
         "payloadType": "date",
@@ -992,7 +891,7 @@
         "type": "debug",
         "z": "1b23e87977e45a58",
         "name": "debug 19",
-        "active": true,
+        "active": false,
         "tosidebar": true,
         "console": false,
         "tostatus": false,
@@ -1116,7 +1015,7 @@
         "type": "debug",
         "z": "1b23e87977e45a58",
         "name": "debug 21",
-        "active": true,
+        "active": false,
         "tosidebar": true,
         "console": false,
         "tostatus": false,
@@ -1156,13 +1055,96 @@
         "repeat": "30",
         "crontab": "",
         "once": true,
-        "onceDelay": "1",
+        "onceDelay": "4",
         "topic": "",
         "x": 370,
         "y": 260,
         "wires": [
             [
                 "6bca3ed1d5f3778b"
+            ]
+        ]
+    },
+    {
+        "id": "76c434c3e564fa49",
+        "type": "function",
+        "z": "1b23e87977e45a58",
+        "name": "To number",
+        "func": "if (msg.payload.value !== undefined)\n{\n    msg.payload = Number(msg.payload.value);\n}\nelse\n{\n    msg.payload = 0;\n}\nreturn msg;\n",
+        "outputs": 1,
+        "timeout": 0,
+        "noerr": 0,
+        "initialize": "// Code added here will be run once\n// whenever the node is started.\nflow.set(\"pvpower\", 0)\nflow.set(\"acpower\", 0)\nflow.set(\"battcharge\", 0)\n",
+        "finalize": "",
+        "libs": [],
+        "x": 890,
+        "y": 760,
+        "wires": [
+            [
+                "7cf36ffc874eef2d",
+                "70b80f9468b4ceff"
+            ]
+        ]
+    },
+    {
+        "id": "b38498549ebd1989",
+        "type": "function",
+        "z": "1b23e87977e45a58",
+        "name": "To number",
+        "func": "if (msg.payload.value !== undefined)\n{\n    msg.payload = Number(msg.payload.value);\n}\nelse\n{\n    msg.payload = 0;\n}\nreturn msg;\n",
+        "outputs": 1,
+        "timeout": 0,
+        "noerr": 0,
+        "initialize": "// Code added here will be run once\n// whenever the node is started.\nflow.set(\"pvpower\", 0)\nflow.set(\"acpower\", 0)\nflow.set(\"battcharge\", 0)\n",
+        "finalize": "",
+        "libs": [],
+        "x": 890,
+        "y": 820,
+        "wires": [
+            [
+                "70b80f9468b4ceff",
+                "13d20c7f15449f1b"
+            ]
+        ]
+    },
+    {
+        "id": "0647b76a775350f7",
+        "type": "function",
+        "z": "1b23e87977e45a58",
+        "name": "To number",
+        "func": "if (msg.payload.value !== undefined)\n{\n    msg.payload = Number(msg.payload.value);\n}\nelse\n{\n    msg.payload = 0;\n}\nreturn msg;\n",
+        "outputs": 1,
+        "timeout": 0,
+        "noerr": 0,
+        "initialize": "// Code added here will be run once\n// whenever the node is started.\nflow.set(\"pvpower\", 0)\nflow.set(\"acpower\", 0)\nflow.set(\"battcharge\", 0)\n",
+        "finalize": "",
+        "libs": [],
+        "x": 890,
+        "y": 880,
+        "wires": [
+            [
+                "70b80f9468b4ceff",
+                "4269236c6c4585fd"
+            ]
+        ]
+    },
+    {
+        "id": "9d9be903496acc98",
+        "type": "rbe",
+        "z": "1b23e87977e45a58",
+        "name": "",
+        "func": "deadbandEq",
+        "gap": "20",
+        "start": "",
+        "inout": "out",
+        "septopics": true,
+        "property": "payload",
+        "topi": "topic",
+        "x": 2220,
+        "y": 600,
+        "wires": [
+            [
+                "681729361cef2e6d"
             ]
         ]
     },
