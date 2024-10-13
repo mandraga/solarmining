@@ -192,17 +192,17 @@ You will specify a low consumption estimate, it will be updated at runtime if a 
 "phase" is your electrical phases, set to 1 if in monophased.
 It will be used later to balance consumption loads.
 
-## Set the idle powe in hiveos
+## Set the idle power in hiveos
 
 The idle power is not that precisely monitored, you can configure it in the worker parameters in hiveos.
 
 ![alt text](https://github.com/mandraga/solarmining/blob/main/pictures/setidlepower.png)
 
-## PV production forecast rest API
+## Set the mining start delay in hiveos
 
-We must know our production profile.
-Then we get a PV production forecast to shutdown immediately the rigs who will not mine during the day. The battery will store the excess power if any.
-TODO
+Because the miners sleep by 20 minutes intervals while battery is low during the day, they must not mine directly on alarm start.
+This saves the battery, and mining for 4 minutes is useless.
+So add 300 seconds to every miner in their hiveos configuration, such as they will be shutdown without mining if the battery is low.
 
-
+![alt text](https://github.com/mandraga/solarmining/blob/main/pictures/minerdelayatstart.png)
 
