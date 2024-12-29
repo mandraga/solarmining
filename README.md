@@ -33,6 +33,17 @@ Octominers 9 do not support wake on lan, but can take profit of the boot on alar
 When the battery is empty we set a bios boot on alarm in one or more days.
 
 
+### Installation
+
+. Enable the large Venus image
+. Edit your config files from the sample files. Add your installation ID, machines, and Hiveos keys.
+. Enable SSH on your Venus
+. SCP the config files to ~/solarmining/confidentiel/
+. Enable the node red on your Venus
+. Connect to the node red and copy Flow victron available power.json Flow ManageHiveosMiners.json into new flows
+. Edit the Mqtt nodes to use your system address.
+. Deploy
+
 ### Example of what it could do with 12 miners:
 
 Today we have 4kw of excess power, and no battery: at 9h we boot 10 miners, 2 are mining at 800 Watts the 8 others are iddle.
